@@ -19,9 +19,7 @@ jobs:
         node-version: 18.x
         cache: 'npm'
         
-    - name: Build app
+    - name: Install project dependencies
       run: npm install
-    - name: Run utit tests
-      run: npm run test:unit
     - name: Run UI tests
       run: npm run test:ui

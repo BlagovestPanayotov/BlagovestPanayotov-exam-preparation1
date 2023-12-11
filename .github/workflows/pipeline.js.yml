@@ -2,26 +2,37 @@ name: Build, Test and Deploy
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
-  build:
+  build and test:
     runs-on: ubuntu-latest
-    
-    steps:
-    - name: Checkout Repo
-      uses: actions/checkout@v3
-    - name: Use Node.js 18.x
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18.x
-        cache: 'npm'
 
-    - name: Display username
-      run: echo BlagovestPanayotov
-    - name: Install project dependencies
-      run: npm install
-    - name: Run utit tests
-      run: npm run test:unit
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: "npm"
+
+      - name: Display username
+        run: echo BlagovestPanayotov
+      - name: Install project dependencies
+        run: npm install
+      - name: Run utit tests
+        run: npm run test:unit
+
+  deploy:
+    needs: build and test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to production
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.RENDER_SERVICE_ID }}
+          api-key: ${{ secrets.RENDER_API_KEY }}
+          wait-for-success: true

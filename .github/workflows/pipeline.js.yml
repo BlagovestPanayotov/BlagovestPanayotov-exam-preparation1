@@ -20,7 +20,7 @@ jobs:
         cache: 'npm'
 
     - name: Display username
-      run: Echo BlagovestPanayotov
+      run: echo BlagovestPanayotov
     - name: Install project dependencies
       run: npm install
     - name: Run utit tests

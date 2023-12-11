@@ -18,7 +18,9 @@ jobs:
       with:
         node-version: 18.x
         cache: 'npm'
-        
+
+    - name: Display username
+      run: Echo BlagovestPanayotov
     - name: Install project dependencies
       run: npm install
     - name: Run utit tests
